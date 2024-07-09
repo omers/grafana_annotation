@@ -3,7 +3,7 @@ import json
 
 class GrafanaAnnotator:
     def __init__(self, grafana_url, api_key):
-        self.grafana_url = grafana_url
+        self.grafana_url = grafana_url.rstrip('/')  # Ensure no trailing slash
         self.api_key = api_key
 
     def create_annotation(self, timestamp, description):
@@ -23,4 +23,4 @@ class GrafanaAnnotator:
         if response.status_code == 200:
             return response.json()
         else:
-            response.raise_for_status()
+            response.raise_for_status()  # Raise HTTPError for non-200 responses
